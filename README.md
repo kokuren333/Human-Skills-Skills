@@ -4,6 +4,9 @@ Agent-oriented authoring skills for creating, editing, reviewing, and source-gro
 
 This repository is intended for coding agents and general-purpose AI agents that need to produce Human Skills in a form that can be imported into Human Skills.
 
+Human Skills  
+https://human-skills.kokuren.workers.dev/
+
 ## Included authoring skills
 
 - `create-skill` — create a new Human Skill from a user goal, notes, or rough requirements.
