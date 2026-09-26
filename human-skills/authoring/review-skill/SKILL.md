@@ -1,39 +1,74 @@
 ---
 format: human-skill/v1
-id: review-human-skill
-title: Review a Human Skill
-language: en
+title: Human Skillを公開前に点検する
+language: ja
 license: CC-BY-4.0
-author: kokuren333
 ---
 
-# Review a Human Skill
+# Human Skillを公開前に点検する
 
 ## こんなとき
 
-Use this when a Human Skill needs to be audited before publishing, importing, sharing, or revising.
+Human Skillを公開、共有、importする前に、内容と形式の両方を確認したいときに使います。
+
+「形式エラーがないか」だけでなく、「人間がHuman Skills上で見つけて、読み、実際に使えるか」まで点検したい場合に向いています。
 
 ## どうする
 
-1. Check format validity:
-   - valid YAML frontmatter;
-   - `format: human-skill/v1`;
-   - stable `id`;
-   - clear `title`;
-   - appropriate `language`, `license`, and `author`;
-   - required `## こんなとき` and `## どうする` sections.
-2. Check the trigger. A reader should understand when the Skill applies and when it does not.
-3. Check prerequisites. Required inputs, tools, permissions, knowledge, or context should not be hidden.
-4. Check actionability. The procedure should describe actions in a usable order rather than merely explain the topic.
-5. Check decision points. Replace vague judgment calls with concrete conditions where possible.
-6. Check verification. Important steps should have observable success criteria when practical.
-7. Check failures. Include common failure modes and recovery paths when they materially affect successful execution.
-8. Check scope. The Skill should represent one coherent reusable capability rather than an entire field of knowledge.
-9. Check portability. Remove unnecessary source-specific wording, anecdotes, branding, or assumptions that prevent reuse.
-10. Check concision. Delete repetition and background detail that does not improve execution or judgment.
-11. Check epistemic limits. Do not present conditional or uncertain guidance as universally true.
-12. Return concrete revision recommendations, and when asked to revise the Skill, output the complete corrected `SKILL.md`.
+### 形式を確認する
+
+新規の外部生成Skillでは、少なくとも次を確認します。
+
+- `format: human-skill/v1`
+- 分かりやすい `title`
+- 適切な `language`
+- `license: CC-BY-4.0`
+- `## こんなとき`
+- `## どうする`
+
+新規Skillでは `id` と `author` を捏造しません。Human Skills側でimport時に確定させます。
+
+既存のexport済みSkillを編集した場合は、有効な `id` と `author` が保持されているか確認します。
+
+### タイトルと検索性を確認する
+
+タイトルだけを見て、何のSkillか理解できるか確認します。
+
+`こんなとき` には、読者が実際に検索しそうな問題、目的、言い換えが自然な文章として含まれているかを見ます。
+
+### 読みやすさを確認する
+
+Raw Markdownを見て、特に次を点検します。
+
+- 見出しの直後に空行があるか
+- 段落同士が空行で分かれているか
+- 箇条書きの前後に必要な空行があるか
+- 1文ごとの不自然な改行がないか
+- 巨大な一段落がないか
+- 小見出しが多すぎたり少なすぎたりしないか
+- リストだけが延々と続いていないか
+
+Webページとして表示したときに、どこを読めばよいか視線で追えることが目標です。
+
+### 実用性を確認する
+
+次の質問に答えられるか確認します。
+
+- どんな状況で使うSkillか
+- 読者は何をすればよいか
+- どこで判断を変えるか
+- よくある失敗は何か
+- 必要なら、どう戻すか
+- どこまでがこのSkillの範囲か
+
+すべてのSkillに失敗例や復旧手順が必要なわけではありません。内容上重要な場合だけ入れます。
+
+### Agent向け文章になっていないか確認する
+
+「このSkillをinvokeする」「routerからdispatchする」のように、AIエージェントの内部実行を前提にした文章になっていないか確認します。
+
+テーマ自体がAgent運用でない限り、人間が普通に読める表現へ直します。
 
 ## 補足
 
-A strong review focuses on whether the Skill transfers reliable know-how. Grammar and style matter, but they are secondary to trigger clarity, executable steps, decision quality, and recovery from failure.
+公開前の点検では、情報量を増やすより、不要なものを削って読みやすくする方が改善につながることも多くあります。

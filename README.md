@@ -1,79 +1,47 @@
 # Human-Skills-Skills
 
-Agent-oriented authoring skills for creating, editing, reviewing, and source-grounding Human Skills.
+Human Skillsを**作る・資料からまとめる・直す・公開前に点検する**ためのメタSkill集です。
 
-This repository is intended for coding agents and general-purpose AI agents that need to produce Human Skills in a form that can be imported into Human Skills.
+AIやCoding Agentから利用できますが、生成されるHuman SkillはAgent内部のworkflowではなく、**Human Skills上で人間が読みやすく、検索しやすく、再利用しやすい知識**になることを優先します。
 
-Human Skills  
-https://human-skills.kokuren.workers.dev/
+## 含まれるSkill
 
-## Included authoring skills
+- `authoring/create-skill` — Human Skillを新しく作る
+- `authoring/create-skill-from-sources` — 資料やWebからHuman Skillを作る
+- `authoring/edit-skill` — 既存のHuman Skillを読みやすく直す
+- `authoring/review-skill` — 公開・import前にHuman Skillを点検する
 
-- `create-skill` — create a new Human Skill from a user goal, notes, or rough requirements.
-- `create-skill-from-sources` — research files and/or the web, extract practical know-how, and compile it into a reusable Human Skill.
-- `edit-skill` — revise an existing Human Skill while preserving its intent and import compatibility.
-- `review-skill` — audit a Human Skill for actionability, clarity, scope, reuse, and format compliance.
+## ChatGPTで使う
 
-## Repository layout
+ChatGPTにこのリポジトリやZIPを渡す場合は、`instruction_for_ChatGPT.md` を参照させてください。
 
-```text
-Human-Skills-Skills/
-├── README.md
-├── AGENTS.md
-└── human-skills/
-    ├── manifest.json
-    └── authoring/
-        ├── create-skill/
-        │   └── SKILL.md
-        ├── create-skill-from-sources/
-        │   └── SKILL.md
-        ├── edit-skill/
-        │   └── SKILL.md
-        └── review-skill/
-            └── SKILL.md
-```
+特に次を明示しています。
 
-## Human Skills compatibility
+- 新規の外部生成Skillでは `id` と `author` を捏造しない
+- Human Skills上で人が読むことを優先する
+- routerやAgent orchestration中心のSkillにしない
+- 検索されやすい自然なタイトルと本文にする
+- Markdownの段落、空行、箇条書き周辺の改行を丁寧に整える
 
-The important artifact is each `SKILL.md`. Human Skills imports skills by discovering `SKILL.md` files in the archive. `manifest.json` is included because exported Human Skills archives contain one, but authoring agents should not depend on it being required for import.
+## Coding Agentで使う
 
-A generated Human Skill should use `format: human-skill/v1` and contain, at minimum:
+`AGENTS.md` を参照してください。
 
-```markdown
+Human Skillsのportable format、編集時のmetadata保持、検索性、Markdown可読性、資料からの知識抽出方針をまとめています。
+
+## 新規Skillのmetadata
+
+Human Skills本体がserver-assigned ID / authorに対応した前提では、外部で新しく生成するSkillは次のようにできます。
+
+```yaml
 ---
 format: human-skill/v1
-id: stable-id
-title: Example title
-language: en
+title: Human Skillを作る
+language: ja
 license: CC-BY-4.0
-author: author-name
 ---
-
-# Example title
-
-## こんなとき
-...
-
-## どうする
-...
 ```
 
-The required section headings are kept exactly as expected by the current Human Skills format, even when the generated skill body is written in another language.
+`id` と `author` はimport時にHuman Skills側で確定します。
 
-## Language policy
-
-The authoring skills in this repository are written in English because they are instructions for agents.
-
-The generated Human Skill itself should use the language requested by the user. If no language is requested, infer the most appropriate language from the task and source material.
-
-## Source use
-
-When creating a Human Skill from source material:
-
-- use files, webpages, manuals, papers, notes, transcripts, or other relevant material as input;
-- extract reusable procedures, heuristics, decision rules, checks, failure modes, and practical know-how;
-- do not copy large passages or turn the Skill into a source summary;
-- strict academic citation is not required unless the user explicitly asks for it;
-- preserve uncertainty and scope limits when the sources do not support a universal rule.
-
-The target output is operational know-how, not a literature review.
+既存のexport済みSkillを編集する場合は、そのSkillの有効な `id` と `author` を保持してください。

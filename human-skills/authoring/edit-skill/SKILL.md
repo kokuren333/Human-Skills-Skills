@@ -1,33 +1,65 @@
 ---
 format: human-skill/v1
-id: edit-human-skill
-title: Edit a Human Skill
-language: en
+title: Human Skillを読みやすく直す
+language: ja
 license: CC-BY-4.0
-author: kokuren333
 ---
 
-# Edit a Human Skill
+# Human Skillを読みやすく直す
 
 ## こんなとき
 
-Use this when an existing Human Skill needs to be corrected, clarified, shortened, expanded, reorganized, localized, or updated without losing its core purpose or import compatibility.
+既存のHuman Skillを、内容は保ちながら分かりやすくしたい、文章を修正・編集したい、検索しやすくしたい、情報を追加または整理したいときに使います。
+
+特に、文章が詰まっている、手順が曖昧、Agent向けの命令文のようになっている、見出しや改行が不自然といった問題を直す場合に向いています。
 
 ## どうする
 
-1. Read the existing Skill completely before editing it.
-2. Identify its current purpose, trigger conditions, intended user, and reusable capability.
-3. Preserve the existing `id` unless the Skill's identity or scope changes enough to justify a new Skill.
-4. Preserve valid Human Skills frontmatter and the required headings.
-5. Apply the requested change while keeping unrelated behavior stable.
-6. Replace vague or descriptive passages with concrete actions and decision rules where possible.
-7. Make hidden prerequisites and assumptions explicit.
-8. Remove duplicate steps, filler, source-specific baggage, and explanations that do not affect execution.
-9. Add checks, failure handling, or stopping conditions when their absence makes the procedure unreliable.
-10. If the Skill now contains multiple independently reusable procedures, split them rather than expanding one Skill indefinitely.
-11. Preserve the target language unless the user requests a language change.
-12. Validate the final result as a complete importable `human-skill/v1` Skill, not as a patch or diff.
+### 先に、元のSkillの目的を確認する
+
+編集前に全体を読み、「誰が、どんな状況で、何をできるようになるためのSkillか」を一文で説明できる状態にします。
+
+目的を確認せずに文章だけ整えると、見た目はきれいでも別のSkillに変わってしまうことがあります。
+
+### 既存のidentityは原則維持する
+
+既存のexport済みSkillに有効な `id` と `author` が含まれている場合は、原則そのまま保持します。
+
+単なる改稿、タイトル改善、移動、誤字修正ではIDを変えません。目的そのものが別物になる場合だけ、新しいSkillとして分けることを検討します。
+
+### 人が読む順序に並べ直す
+
+重要な内容を早く見つけられるように、必要なら次の順序へ整理します。
+
+1. どんなときに使うか
+2. 基本となる考え方
+3. 実際のやり方
+4. 判断の目安
+5. よくある失敗や例外
+6. 必要なら具体例
+
+ただし、すべてのSkillを同じテンプレートへ機械的に当てはめる必要はありません。
+
+### 曖昧さと重複を減らす
+
+同じ内容の繰り返し、長い前置き、資料固有の説明、読者の判断に影響しない背景は削ります。
+
+「適切に対応する」のような曖昧な箇所は、可能なら具体的な判断条件へ置き換えます。
+
+### 改行と空行を直す
+
+見出しの直後には空行を入れます。段落同士も空行で分けます。
+
+本文の途中で1文ごとに改行されている場合は、同じ話題を自然な段落へ戻します。逆に、複数の話題が1つの巨大段落になっている場合は、段落または小見出しで分けます。
+
+箇条書きの前後にも空行を入れ、リストと本文が視覚的に混ざらないようにします。
+
+### 検索される言葉を自然に入れる
+
+タイトルや `こんなとき` に、読者が実際に使いそうな言葉があるか確認します。
+
+検索語だけを並べるのではなく、状況説明の文章として自然に含めます。
 
 ## 補足
 
-When editing, optimize for behavioral clarity rather than stylistic polish alone. The question is not only whether the text reads better, but whether someone can perform the Skill more reliably after the edit.
+Human Skillの編集では、文章を美しくすることよりも、「見つけやすい」「読んですぐ意味が分かる」「実際に使える」の3点を優先します。

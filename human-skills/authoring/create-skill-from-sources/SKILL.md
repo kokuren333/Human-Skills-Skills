@@ -1,55 +1,70 @@
 ---
 format: human-skill/v1
-id: create-human-skill-from-sources
-title: Create a Human Skill from Sources
-language: en
+title: 資料からHuman Skillを作る
+language: ja
 license: CC-BY-4.0
-author: kokuren333
 ---
 
-# Create a Human Skill from Sources
+# 資料からHuman Skillを作る
 
 ## こんなとき
 
-Use this when a Human Skill should be built from existing material such as user-provided files, webpages, documentation, manuals, papers, books, notes, transcripts, examples, or web research.
+Web記事、論文、マニュアル、本、動画の文字起こし、社内資料、自分のメモなどを参考にして、再利用可能なHuman Skillを作りたいときに使います。
+
+資料の要約を作るのではなく、複数の情報から「実際に使えるやり方や判断基準」を取り出したい場合に向いています。
 
 ## どうする
 
-1. Define the practical capability the resulting Skill should teach. Do not begin by summarizing every source.
-2. Gather only sources relevant to that capability. Use user-provided material first when it is authoritative for the task, and use web research when current or missing information would improve the Skill.
-3. Extract operational knowledge from the sources:
-   - procedures;
-   - heuristics;
-   - prerequisites;
-   - decision rules;
-   - success checks;
-   - common mistakes;
-   - failure modes;
-   - recovery actions;
-   - scope limits.
-4. Separate durable know-how from source-specific wording, anecdotes, branding, and presentation style.
-5. Compare overlapping sources. When they agree, consolidate the common rule. When they disagree, identify the condition under which each recommendation applies, or preserve the uncertainty.
-6. Do not copy long passages. Rewrite the extracted knowledge as an independent Skill.
-7. Do not turn the output into a literature review or bibliography. Strict citation is not required unless the user explicitly asks for it.
-8. Convert descriptive material into executable instructions. Prefer "If X is observed, do Y" over "Y is often considered useful."
-9. Remove details that do not affect action, judgment, or verification.
-10. Preserve important safety limits, exceptions, and uncertainty instead of overstating the evidence.
-11. Write the resulting Human Skill in the language requested by the user, or infer the most appropriate language when unspecified.
-12. Output a valid `human-skill/v1` `SKILL.md` with `## こんなとき` and `## どうする`.
-13. Review the final Skill as if the sources were no longer available. It should still stand on its own as reusable operational knowledge.
+### 先に、何をできるSkillにするか決める
+
+資料を読み始める前に、読者が最終的に何をできるようになるのかを決めます。
+
+目的を決めずに資料を集めると、情報量だけが増えて要約集になりやすくなります。
+
+### 実用的な知識を抜き出す
+
+資料から優先して拾うのは、次のような情報です。
+
+- 手順や順序
+- 判断基準
+- 前提条件
+- 成功を確認する方法
+- よくある失敗
+- 失敗から戻る方法
+- 例外
+- 状況によって変わる条件
+- 具体例
+
+歴史、背景、逸話、ブランド固有の説明などは、それが行動や判断を変える場合だけ残します。
+
+### 複数の資料をそのまま並べない
+
+複数資料が同じことを言っている場合は、共通部分を1つの分かりやすい原則へまとめます。
+
+内容が食い違う場合は、どちらかを雑に捨てるのではなく、「どの条件ではAが向き、どの条件ではBが向くのか」を確認します。判断できない場合は、不確実性そのものを残します。
+
+### 原文ではなく、独立したSkillとして書き直す
+
+長い引用や資料固有の言い回しをそのまま貼りません。
+
+資料が手元になくても読者が理解できるように、独立した文章として再構成します。引用や厳密な出典一覧は、ユーザーが必要としている場合だけ追加します。
+
+### 人が読みやすいMarkdownにする
+
+段落の切れ目には空行を入れ、箇条書きの前後にも適切な空行を入れます。
+
+1文ごとの改行や、逆に長すぎる一段落を避けます。長い内容は、小見出しで論点を分けます。
+
+### 最後に、資料なしで読めるか確認する
+
+完成したSkillだけを読んで、次を確認します。
+
+- どんなときに使うか分かるか
+- 実際に何をすればよいか分かるか
+- 判断を変える条件が分かるか
+- 資料の文脈を知らなくても意味が通るか
+- 検索しそうな言葉が自然に含まれているか
 
 ## 補足
 
-Think of this process as compiling sources into a procedure, not compressing sources into a summary.
-
-For example, several sources such as:
-
-- "Usually do X first."
-- "Under condition Y, prefer Z."
-- "W is a common failure mode."
-
-should become something like:
-
-1. Start with X.
-2. If Y is present, use Z instead.
-3. Check for W; if it occurs, perform the recovery step.
+この作業は、資料を短く圧縮することではなく、資料に散らばったノウハウを1つの再利用可能な知識へ編集する作業です。

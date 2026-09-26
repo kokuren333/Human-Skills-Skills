@@ -1,33 +1,68 @@
 ---
 format: human-skill/v1
-id: create-human-skill
-title: Create a Human Skill
-language: en
+title: Human Skillを作る
+language: ja
 license: CC-BY-4.0
-author: kokuren333
 ---
 
-# Create a Human Skill
+# Human Skillを作る
 
 ## こんなとき
 
-Use this when a user wants to turn a goal, practice, workflow, technique, set of notes, or rough idea into a reusable Human Skill that can be imported into Human Skills.
+自分の経験、ノウハウ、練習法、仕事のコツ、判断基準、メモなどを、他の人も再利用できるHuman Skillとして残したいときに使います。
+
+単なる説明文や日記ではなく、「どんな場面で役立ち、どう考えたり行動したりすればよいか」が分かる形にしたい場合に向いています。
 
 ## どうする
 
-1. Identify the smallest reusable capability being requested.
-2. Determine the trigger: describe when someone should use this Skill and when they should not.
-3. Identify prerequisites, inputs, tools, or context required before starting.
-4. Convert the knowledge into an ordered procedure rather than a general explanation.
-5. Make decision points explicit. Replace vague phrases with observable conditions whenever possible.
-6. Add checks that tell the user whether each important step worked.
-7. Include likely failure modes and recovery steps when they materially affect success.
-8. Keep the Skill focused. If it contains multiple independently reusable procedures, split them into separate Skills.
-9. Choose a stable, descriptive `id` and a clear human-facing `title`.
-10. Write the generated Skill in the language requested by the user. If no language is requested, infer it from the task or source material.
-11. Produce an importable `SKILL.md` using `format: human-skill/v1` with the required headings `## こんなとき` and `## どうする`.
-12. Perform a final pass for actionability, unnecessary repetition, hidden assumptions, and format validity.
+### まず、1つの役立ち方に絞る
+
+最初に、このSkillを読んだ人が何をできるようになるのかを1つ決めます。
+
+「文章を書く」のように広すぎる場合は、「長い文章を読みやすく整理する」「書き出しで迷ったときに構成を決める」のように、独立して役立つ単位まで狭めます。
+
+### 「こんなとき」は検索の入口として書く
+
+読者が自分の状況と照合できるように、実際に起こる困りごとや目的を書きます。
+
+専門用語だけでなく、読者が検索しそうな日常語や言い換えも自然に含めると見つけやすくなります。
+
+### 「どうする」は人が読んで使える形にする
+
+内容に応じて、次のような要素を組み合わせます。
+
+- 基本となる考え方
+- 実際の手順
+- 判断の目安
+- よくある失敗
+- 失敗したときの戻し方
+- 具体例
+- 例外や適用しない場面
+
+順序が重要な内容だけ番号付きリストにします。考え方や注意点まで何でも手順化すると、かえって読みにくくなります。
+
+### 曖昧な助言を具体化する
+
+「適切に」「よく考えて」「必要に応じて」と書くだけでは、再利用しにくいSkillになります。
+
+可能なら、「何を観察したら判断を変えるか」「どの状態なら十分か」「何が起きたらやり直すか」を書きます。
+
+### Markdownを読みやすく整える
+
+見出しの直後、段落と段落の間、本文と箇条書きの境界には空行を入れます。
+
+1文ごとに機械的に改行せず、同じ話題は1つの段落としてまとめます。一方で、異なる論点を巨大な1段落へ詰め込まないようにします。
+
+内容が長くなる場合は、`### 判断の目安`、`### よくある失敗`、`### 例` などの小見出しを使います。
+
+### 新規Skillでは管理用IDを作らない
+
+外部から新しく作るHuman Skillでは、`id` と `author` を勝手に生成しません。
+
+Human Skillsへimportするときに、Skill IDとauthorはサービス側で確定します。既存のexport済みSkillを編集する場合だけ、そこに含まれている有効な `id` と `author` を保持します。
 
 ## 補足
 
-A good Human Skill should let another person act without needing to reconstruct the author's reasoning from scratch. Prefer compact operational knowledge over background exposition.
+よいHuman Skillは、作者本人の頭の中にある前提を知らなくても使えます。
+
+背景説明を増やすことより、読者が「自分に関係ある」「この場面ではこうすればよい」と判断できることを優先します。
